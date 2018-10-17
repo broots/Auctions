@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2046
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoftInc.Auctions.Business", "SoftInc.Auctions.Business\SoftInc.Auctions.Business.csproj", "{56079EC5-07B6-4E54-A524-57002B8741A7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoftInc.Auctions.Web", "SoftInc.Auctions.Web\SoftInc.Auctions.Web.csproj", "{BEBD3D1B-27EB-4FB4-A5CA-0B76997B37F5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{56079EC5-07B6-4E54-A524-57002B8741A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56079EC5-07B6-4E54-A524-57002B8741A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56079EC5-07B6-4E54-A524-57002B8741A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56079EC5-07B6-4E54-A524-57002B8741A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BEBD3D1B-27EB-4FB4-A5CA-0B76997B37F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BEBD3D1B-27EB-4FB4-A5CA-0B76997B37F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BEBD3D1B-27EB-4FB4-A5CA-0B76997B37F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BEBD3D1B-27EB-4FB4-A5CA-0B76997B37F5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {05D208AE-B598-431C-83C1-DB0E5FE7958C}
+	EndGlobalSection
+EndGlobal
