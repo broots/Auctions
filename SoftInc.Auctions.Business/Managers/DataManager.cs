@@ -72,7 +72,7 @@ namespace SoftInc.Auctions.Business.Managers
             }
         }
 
-        public async Task<IEnumerable<T>> GetAll(params Expression<Func<T, object>>[] includes)
+        public async Task<List<T>> GetAll(params Expression<Func<T, object>>[] includes)
         {
             using (var dbContext = new AuctionsContext())
             {

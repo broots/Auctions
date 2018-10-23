@@ -10,54 +10,29 @@ using System.Web.Http;
 
 namespace SoftInc.Auctions.Web.Controllers
 {
-    public class AuctionController : ApiController
+    public class AuctionController : BaseApiController<Auction>
     {
-        IRepository<Auction> _auctionManager;
-
         public AuctionController()
         {
-            _auctionManager = new DataManager<Auction>();
         }
 
         public async Task<IHttpActionResult> Save(Auction auction)
         {
-            try
-            {
-                auction = await _auctionManager.Save(auction);
-                return Ok(auction);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            return await Save(auction);
         }
 
         public async Task<IHttpActionResult> GetUpcomingAuctions()
         {
-            try
-            {
-                var dt = DateTime.Today;
-                var result = await _auctionManager.Search(m => m.StartDate >= dt);
+            var dt = DateTime.Today;
+            var result = await Search(m => m.StartDate >= dt);
 
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            return result;
         }
 
         public async Task<IHttpActionResult> GetAuctionById(long id)
         {
-            try
-            {
-                var result = await _auctionManager.Get(m => m.Id == id);
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            var result = await GetById(m => m.Id == id);
+            return result;
         }
     }
 }

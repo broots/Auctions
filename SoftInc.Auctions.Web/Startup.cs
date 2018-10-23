@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Owin;
 using Owin;
+using SoftInc.Auctions.Web.Mapping;
 
 [assembly: OwinStartup(typeof(SoftInc.Auctions.Web.Startup))]
 
@@ -14,6 +15,7 @@ namespace SoftInc.Auctions.Web
         {
             app.MapSignalR();
             ConfigureAuth(app);
+            MappingProfile.Configure();
         }
     }
 }

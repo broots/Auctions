@@ -9,7 +9,7 @@ namespace SoftInc.Auctions.Business.Managers
 {
     public interface IRepository<T> where T : class
     {
-        Task<IEnumerable<T>> GetAll(params Expression<Func<T, object>>[] includes);
+        Task<List<T>> GetAll(params Expression<Func<T, object>>[] includes);
         Task<T> Get(Expression<Func<T, bool>> query, params Expression<Func<T, object>>[] includes);
         Task<T> Save(T entity);
         Task<List<T>> SaveAll(List<T> entities);

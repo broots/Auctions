@@ -30,6 +30,8 @@ namespace SoftInc.Auctions.Business.Ef
         public Nullable<int> SubCategoryId { get; set; }
         public Nullable<System.DateTime> DateCreated { get; set; }
         public Nullable<System.DateTime> DateModified { get; set; }
+        public Nullable<decimal> ReservePrice { get; set; }
+        public Nullable<bool> IsSold { get; set; }
     
         public virtual Auction Auction { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
