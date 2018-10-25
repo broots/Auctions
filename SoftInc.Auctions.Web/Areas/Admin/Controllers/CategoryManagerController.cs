@@ -10,9 +10,9 @@ using System.Web.Mvc;
 
 namespace SoftInc.Auctions.Web.Areas.Admin.Controllers
 {
-    public class CategoryManagerController : Controller
+    public class CategoryManagerController : BaseManagerController
     {
-        IRepository<ItemCategory> _catManager;
+        //IRepository<ItemCategory> _catManager;
 
         public CategoryManagerController()
         {

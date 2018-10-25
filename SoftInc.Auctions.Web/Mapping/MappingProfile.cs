@@ -16,6 +16,8 @@ namespace SoftInc.Auctions.Web.Mapping
             {
                 cfg.CreateMap<ItemSubCategory, SubCategoryModel>();
                 cfg.CreateMap<SubCategoryModel, ItemSubCategory>();
+                cfg.CreateMap<ItemModel, Item>();
+                cfg.CreateMap<Item, ItemModel>();
             });
         }
     }

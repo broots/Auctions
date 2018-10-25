@@ -16,10 +16,10 @@ namespace SoftInc.Auctions.Web.Controllers
         {
         }
 
-        public async Task<IHttpActionResult> Save(Auction auction)
-        {
-            return await Save(auction);
-        }
+        //public async Task<IHttpActionResult> Save(Auction auction)
+        //{
+        //    return await Save(auction);
+        //}
 
         public async Task<IHttpActionResult> GetUpcomingAuctions()
         {

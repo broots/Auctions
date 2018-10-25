@@ -12,11 +12,8 @@ using System.Web.Mvc;
 
 namespace SoftInc.Auctions.Web.Areas.Admin.Controllers
 {
-    public class SubCategoryManagerController : Controller
+    public class SubCategoryManagerController : BaseManagerController
     {
-        IRepository<ItemSubCategory> _subCatManager;
-        IRepository<ItemCategory> _catManager;
-
         public SubCategoryManagerController()
         {
             _subCatManager = new DataManager<ItemSubCategory>();
@@ -34,7 +31,7 @@ namespace SoftInc.Auctions.Web.Areas.Admin.Controllers
         {
             if (string.IsNullOrEmpty(subCategory?.SubCategoryName))
             {
-                subCategory = await LoadCategories(subCategory);
+                subCategory.Categories = GetCategoryList();
                 return View(subCategory);
             }
 
@@ -46,8 +43,14 @@ namespace SoftInc.Auctions.Web.Areas.Admin.Controllers
         {
             var data = await _subCatManager.Get(m => m.Id == id, m => m.Items);
             var result = new SubCategoryModel { CategoryId = data.CategoryId, Id = data.Id, SubCategoryName = data.SubCategoryName, SubCategoryDescription = data.SubCategoryDescription }; // Mapper.Map<SubCategoryModel>(data);
-            result = await LoadCategories(result, data.CategoryId);
+            result.Categories = GetCategoryList(data.CategoryId);
             return View(result);
+        }
+
+        public async Task<ActionResult> Delete(long id)
+        {
+            var bln = await _subCatManager.Delete(m => m.Id == id);
+            return RedirectToAction("Index");
         }
 
 
@@ -75,15 +78,6 @@ namespace SoftInc.Auctions.Web.Areas.Admin.Controllers
             }
 
             return View(viewName, subCategory);
-        }
-
-
-        private async Task<SubCategoryModel> LoadCategories(SubCategoryModel subCategory, short? categoryId = null)
-        {
-            var cats = await _catManager.GetAll();
-            subCategory.Categories = cats.Select(x => new SelectListItem { Text = x.CategoryName, Value = x.Id.ToString(), Selected = x.Id == categoryId });
-
-            return subCategory;
         }
     }
 }
