@@ -7,9 +7,8 @@ using System.Web.Mvc;
 
 namespace SoftInc.Auctions.Web.Models
 {
-    public class ItemModel
+    public class ItemModel : BaseModel
     {
-        public long Id { get; set; }
 
         [Display(Name = "Item Name")]
         [Required]
@@ -23,8 +22,6 @@ namespace SoftInc.Auctions.Web.Models
         public long? AuctionId { get; set; }
         public short? CategoryId { get; set; }
         public int? SubCategoryId { get; set; }
-        public DateTime? DateCreated { get; set; }
-        public DateTime? DateModified { get; set; }
 
         [Display(Name = "Reserve Price")]
         public decimal? ReservePrice { get; set; }

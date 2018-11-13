@@ -19,8 +19,7 @@
                 @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                </ul>
+                <ul class="nav navbar-nav"></ul>
             </div>
         </div>
     </div>
@@ -35,6 +34,21 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/datetime")
+
+    <script type="text/javascript">
+        $(function () { // will trigger when the document is ready
+            $('.datepicker').datetimepicker({
+                locale: 'en-GB',
+                //format: 'L'
+                format: 'DD.MM.YYYY'
+            }); //Initialise any date pickers
+            $('.timepicker').datetimepicker({
+                //format: 'LT'
+                format: 'HH:mm'
+            });
+        });
+    </script>
     @RenderSection("scripts", required: false)
 </body>
 </html>

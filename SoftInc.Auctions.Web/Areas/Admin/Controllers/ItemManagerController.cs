@@ -45,13 +45,18 @@ namespace SoftInc.Auctions.Web.Areas.Admin.Controllers
             }
 
             item.DateCreated = DateTime.Now;
-            return await Save(item, "Create");
+            return await Save<Item>(item);
         }
 
         public async Task<ActionResult> Edit(long id)
         {
             var data = await _itemManager.Get(m => m.Id == id, m => m.ItemImages);
             return View(data);
+        }
+
+        public async Task<ActionResult> Save(ItemModel model)
+        {
+            return await Save<Item>(model);
         }
 
         public async Task<ActionResult> Details(long? id)
@@ -135,30 +140,7 @@ namespace SoftInc.Auctions.Web.Areas.Admin.Controllers
         [HttpPost]
         public JsonResult GetSubCategories(string id)
         {
-            var sc = SubCategories.Where(x => x.CategoryId == int.Parse(id)).ToList();
-            var subCats = sc.Select(x => new SelectListItem { Text = x.SubCategoryName, Value = x.Id.ToString() });
-            return Json(new SelectList(subCats, "Value", "Text", "--Please Select--"));
-        }
-
-        private async Task<ActionResult> Save(ItemModel itemModel, string viewName)
-        {
-            try
-            {
-                if (ModelState.IsValid)
-                {
-                    var item = Mapper.Map<Item>(itemModel);
-                    var result = await _itemManager.Save(item);
-
-                    return RedirectToAction("Index");
-                }
-            }
-            catch (DataException /* dex */)
-            {
-                //Log the error (uncomment dex variable name and add a line here to write a log.
-                ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
-            }
-
-            return View(viewName, itemModel);
+            return FilterSubCategories(id);
         }
     }
 }
