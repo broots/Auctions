@@ -47,5 +47,10 @@ namespace SoftInc.Auctions.Web.Models
         }
 
         public IEnumerable<SelectListItem> SubCategories { get; set; }
+
+        [FileExtensions(Extensions = ".jpg,.jpeg,.png", ErrorMessage = "Incorrect file format")]
+        public List<HttpPostedFileBase> UploadFiles { get; set; }
+
+        public List<string> Images { get; set; }
     }
 }

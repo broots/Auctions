@@ -73,37 +73,39 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+@section scripts
+{
+    <script type="text/javascript">
 
-<script type="text/javascript">
+        $(document).ready(function () {
+            //Dropdownlist Selectedchange event
+            $("#CategoryIdSelected").change(function () {
+                $("#SubCategoryIdSelected").empty();
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("GetSubCategories")', // we are calling json method
 
-    $(document).ready(function () {
-        //Dropdownlist Selectedchange event
-        $("#cats").change(function () {
-            $("#subs").empty();
-            $.ajax({
-                type: 'POST',
-                url: '@Url.Action("GetSubCategories")', // we are calling json method
+                    dataType: 'json',
 
-                dataType: 'json',
+                    data: { id: $("#CategoryIdSelected").val() },
 
-                data: { id: $("#cats").val() },
+                    success: function (subs) {
+                        // states contains the JSON formatted list
+                        // of states passed from the controller
 
-                success: function (subs) {
-                    // states contains the JSON formatted list
-                    // of states passed from the controller
+                        $.each(subs, function (i, sub) {
+                            $("#SubCategoryIdSelected").append('<option value="' + sub.Value + '">' +
+                             sub.Text + '</option>');
+                        // here we are adding option for States
 
-                    $.each(subs, function (i, sub) {
-                    $("#subs").append('<option value="' + sub.Value + '">' +
-                         sub.Text + '</option>');
-                    // here we are adding option for States
-
-                    });
-                },
-                error: function (ex) {
-                    alert('Failed to retrieve sub categories.' + ex);
-                }
-            });
-            return false;
-        })
-    });
-</script>
+                        });
+                    },
+                    error: function (ex) {
+                        alert('Failed to retrieve sub categories.' + ex);
+                    }
+                });
+                return false;
+            })
+        });
+    </script>
+}

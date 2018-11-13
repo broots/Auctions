@@ -319,6 +319,7 @@
     <Content Include="Areas\Admin\Views\ItemManager\Create.cshtml" />
     <Content Include="Areas\Admin\Views\ItemManager\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\ItemManager\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\ItemManager\Details.cshtml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />

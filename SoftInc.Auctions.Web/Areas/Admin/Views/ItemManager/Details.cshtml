@@ -1,0 +1,128 @@
+﻿@model SoftInc.Auctions.Web.Models.ItemModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Item Details</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ItemName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ItemName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ItemSummary)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ItemSummary)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ItemDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ItemDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AuctionId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AuctionId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CategoryId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CategoryId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SubCategoryId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SubCategoryId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ReservePrice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReservePrice)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsSold)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsSold)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CategoryIdSelected)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CategoryIdSelected)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SubCategoryIdSelected)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SubCategoryIdSelected)
+        </dd>
+
+    </dl>
+    <div>
+        <ul class="list-inline">
+            @foreach (var img in Model.Images)
+            {
+                <li class="list-inline-item"><img src="@String.Format("data:image/png;base64,{0}", img)" /></li>
+            }
+        </ul>
+    </div>
+</div>
+<div class="form-horizontal">
+    @using (Html.BeginForm("UploadItemImages", "ItemManager", FormMethod.Post,
+                                new { enctype = "multipart/form-data" }))
+    {
+        @Html.HiddenFor(m => m.Id)
+    <div class="form-group">
+        <label for="file">Upload Images:</label>
+        @Html.TextBoxFor(m => m.UploadFiles, new { type = "file", @multiple = "multiple", name = "Files", @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.UploadFiles)
+    </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Upload" class="btn btn-default" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10 text-success">
+                @ViewBag.UploadStatus
+            </div>
+        </div>
+    }
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
