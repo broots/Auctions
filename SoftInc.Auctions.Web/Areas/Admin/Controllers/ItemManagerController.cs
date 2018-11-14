@@ -140,6 +140,7 @@ namespace SoftInc.Auctions.Web.Areas.Admin.Controllers
         [HttpPost]
         public JsonResult GetSubCategories(string id)
         {
+            if (string.IsNullOrEmpty(id)) return Json(new SelectList(new List<SelectListItem>(), "Value", "Text", "--Please Select--"));
             return FilterSubCategories(id);
         }
     }

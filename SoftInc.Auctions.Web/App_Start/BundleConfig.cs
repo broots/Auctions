@@ -23,9 +23,15 @@ namespace SoftInc.Auctions.Web
                 "~/Scripts/moment*",
                 "~/Scripts/bootstrap-datetimepicker*"));
 
+            bundles.Add(new ScriptBundle("~/bundles/bootstrapselect").Include(
+                //"~/Scripts/popper*",
+                //"~/Scripts/popper-utils*",
+                "~/Scripts/bootstrap-select*"));
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                      "~/Content/site.css",
+                      "~/Content/bootstrap-select.css"));
         }
     }
 }

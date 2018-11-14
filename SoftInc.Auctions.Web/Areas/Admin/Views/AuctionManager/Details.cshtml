@@ -84,7 +84,90 @@
 
     </dl>
 </div>
+@if (Model.Items.Count > 0)
+{
+    <div>
+        <table class="table">
+            <tr>
+                <th>Item</th>
+                <th>Summary</th>
+                <th>Reserve Price</th>
+            </tr>
+            @foreach (var itm in Model.Items)
+            {
+            <tr>
+                <td>@itm.ItemName</td>
+                <td>@itm.ItemSummary</td>
+                <td>@itm.ReservePrice</td>
+            </tr>
+            }
+        </table>
+    </div>
+}
+<div class="row">
+    <div class="col-xs-2">
+
+        <button id="btnShowModal" type="button"
+                class="btn btn-sm btn-default pull-left col-lg-11 button button4">
+            Add Items
+        </button>
+        <div class="modal fade" tabindex="-1" id="itemsModal"
+             data-keyboard="false" data-backdrop="static">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">
+                            ×
+                        </button>
+                        <h4 class="modal-title">Auction Items</h4>
+                    </div>
+                    @using (Html.BeginForm("AddItems", "AuctionManager", FormMethod.Post))
+                    {
+                        @Html.HiddenFor(m => m.Id)
+                    <div class="modal-body">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.UnAuctionedItems, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.ListBoxFor(model => model.UnAuctionedItemsSelected, Model.UnAuctionedItems, new { @id = "itms", @class = "selectpicker form-control", title = "Item", @data_live_search="true" } )
+                                @Html.ValidationMessageFor(model => model.UnAuctionedItems, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        @*<select class="selectpicker" data-live-search="true" multiple>
+                            @foreach (var itm in Model.AuctionItems)
+                            {
+                                <option value="@itm.Value">@itm.Text</option>
+                            }
+                        </select>*@
+                    </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary button button4">Save</button>
+                            <button type="button" id="btnHideModal" class="btn btn-primary button button4">
+                                Hide
+                            </button>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+
+@section scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#btnShowModal").click(function () {
+                $("#itemsModal").modal('show');
+            });
+
+            $("#btnHideModal").click(function () {
+                $("#itemsModal").modal('hide');
+            });
+        });
+    </script>
+}

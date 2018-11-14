@@ -35,9 +35,13 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/datetime")
+    @Scripts.Render("~/bundles/bootstrapselect")
 
     <script type="text/javascript">
         $(function () { // will trigger when the document is ready
+            $('select').selectpicker({
+                dataLiveSearch: true,
+            });
             $('.datepicker').datetimepicker({
                 locale: 'en-GB',
                 //format: 'L'

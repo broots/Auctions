@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace SoftInc.Auctions.Web.Models
 {
@@ -35,6 +36,13 @@ namespace SoftInc.Auctions.Web.Models
                 StartTime = t;
             }
         }
+
+        public List<ItemModel> Items { get; set; }
+
+        public List<string> UnAuctionedItemsSelected { get; set; }
+
+        [Display(Name = "Available Items")]
+        public IEnumerable<SelectListItem> UnAuctionedItems { get; set; }
 
         [Display(Name = "End Time")]
         public TimeSpan? EndTime { get; set; }
