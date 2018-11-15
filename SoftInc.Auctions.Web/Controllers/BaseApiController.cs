@@ -1,4 +1,5 @@
-﻿using SoftInc.Auctions.Business.Managers;
+﻿using AutoMapper;
+using SoftInc.Auctions.Business.Managers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,30 +33,32 @@ namespace SoftInc.Auctions.Web.Controllers
             }
         }
 
-        public async Task<IHttpActionResult> Search(Expression<Func<T, bool>> query, Expression<Func<T, object>> orderBy = null, int? skip = null, int? take = null, params Expression<Func<T, object>>[] includes)
+        protected async Task<K> Search<K>(Expression<Func<T, bool>> query, Expression<Func<T, object>> orderBy = null, int? skip = null, int? take = null, params Expression<Func<T, object>>[] includes) where K : class
         {
             try
             {
-                var result = await _dataManager.Search(query, orderBy, skip, take, includes);
+                var data = await _dataManager.Search(query, orderBy, skip, take, includes);
+                var result = Mapper.Map<K>(data);
 
-                return Ok(result);
+                return result; // Ok(result);
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return null; // BadRequest(ex.Message);
             }
         }
 
-        public async Task<IHttpActionResult> GetById(Expression<Func<T, bool>> query, params Expression<Func<T, object>>[] includes)
+        protected async Task<K> GetById<K>(Expression<Func<T, bool>> query, params Expression<Func<T, object>>[] includes) where K : class
         {
             try
             {
-                var result = await _dataManager.Get(query, includes);
-                return Ok(result);
+                var data = await _dataManager.Get(query, includes);
+                var result = Mapper.Map<K>(data);
+                return result;
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return null;// BadRequest(ex.Message);
             }
         }
     }

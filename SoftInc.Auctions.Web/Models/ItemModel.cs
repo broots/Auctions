@@ -23,7 +23,7 @@ namespace SoftInc.Auctions.Web.Models
         public short? CategoryId { get; set; }
         public int? SubCategoryId { get; set; }
 
-        [Display(Name = "Reserve Price")]
+        [Display(Name = "Reserve Price"), DisplayFormat(DataFormatString = "{0:C}")]
         public decimal? ReservePrice { get; set; }
 
         [Display(Name = "Is Sold")]

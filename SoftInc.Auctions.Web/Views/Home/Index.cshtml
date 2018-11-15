@@ -1,35 +1,44 @@
-﻿        <!-- Content Header (Page header) -->
-        <section class="content-header">
-            <h1>
-                Page Header
-                <small>Optional description</small>
-            </h1>
-            <ol class="breadcrumb">
-                <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
-                <li class="active">Here</li>
-            </ol>
-        </section>
+﻿@model IEnumerable<SoftInc.Auctions.Web.Models.AuctionModel>
+<!-- Apply any bg-* class to to the info-box to color it -->
+@{ 
+    var colours = new Dictionary<int, string>
+    {
+        { 0, "bg-red" },
+        { 1, "bg-yellow" },
+        { 5, "bg-green" },
+        { 10, "bg-aqua" },
+    };
+}
 
-        <!-- Main content -->
-        <section class="content container-fluid">
-            <!-- Apply any bg-* class to to the info-box to color it -->
+    @foreach (var auction in Model)
+    {
+        var numDays = (auction.StartDate.GetValueOrDefault() - DateTime.Today).Days;
+        var numDaysFromCreation = (auction.StartDate.GetValueOrDefault() - auction.DateCreated.GetValueOrDefault()).Days;
+        var perc = (double)numDays / numDaysFromCreation;
+        var percTxt = string.Format("{0:0.0%}", perc);
+
+        var daysTillEnd = (auction.EndDate.GetValueOrDefault() - DateTime.Today).Days;
+        var colour = colours.Where(x => daysTillEnd >= x.Key).OrderByDescending(x => x.Key).FirstOrDefault().Value;
+
+        <a href="/home/AuctionItems/@auction.Id">
             <div class="col-sm-6 col-xs-12">
-                <div class="info-box bg-yellow">
+                <div class="info-box @colour">
                     <span class="info-box-icon"><i class="fa fa-calendar"></i></span>
                     <div class="info-box-content">
-                        <span class="info-box-text">Auction Items</span>
-                        <span class="info-box-number">100</span>
+                        <span class="info-box-text">@auction.AuctionName</span>
+                        <span class="info-box-number">@auction.Items.Count Items</span>
                         <!-- The progress section is optional -->
                         <div class="progress">
-                            <div class="progress-bar" style="width: 70%"></div>
+                            <div class="progress-bar" style="width: @percTxt"></div>
                         </div>
                         <span class="progress-description">
-                            Days till auction
+                            @numDays Day(s) till auction
                         </span>
                     </div>
                     <!-- /.info-box-content -->
                 </div>
             </div>
-            <!-- /.info-box -->
-        </section>
-        <!-- /.content -->
+        </a>
+}
+
+
