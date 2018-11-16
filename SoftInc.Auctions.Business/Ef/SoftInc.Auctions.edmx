@@ -49,7 +49,6 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="AuctionId" Type="bigint" Nullable="false" />
           <Property Name="ItemId" Type="bigint" Nullable="false" />
           <Property Name="BidderId" Type="bigint" />
           <Property Name="Amount" Type="decimal" Precision="18" Scale="2" />
@@ -104,18 +103,6 @@
           <Property Name="DateCreated" Type="datetime" />
           <Property Name="DateModified" Type="datetime" />
         </EntityType>
-        <Association Name="FK_Bidding_Auction">
-          <End Role="Auction" Type="Self.Auction" Multiplicity="1" />
-          <End Role="Bidding" Type="Self.Bidding" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Auction">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Bidding">
-              <PropertyRef Name="AuctionId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Bidding_Bidder">
           <End Role="Bidder" Type="Self.Bidder" Multiplicity="0..1" />
           <End Role="Bidding" Type="Self.Bidding" Multiplicity="*" />
@@ -208,10 +195,6 @@
           <EntitySet Name="ItemCategory" EntityType="Self.ItemCategory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ItemImages" EntityType="Self.ItemImages" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ItemSubCategory" EntityType="Self.ItemSubCategory" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_Bidding_Auction" Association="Self.FK_Bidding_Auction">
-            <End Role="Auction" EntitySet="Auction" />
-            <End Role="Bidding" EntitySet="Bidding" />
-          </AssociationSet>
           <AssociationSet Name="FK_Bidding_Bidder" Association="Self.FK_Bidding_Bidder">
             <End Role="Bidder" EntitySet="Bidder" />
             <End Role="Bidding" EntitySet="Bidding" />
@@ -258,7 +241,6 @@
           <Property Name="DateCreated" Type="DateTime" Precision="3" />
           <Property Name="DateModified" Type="DateTime" Precision="3" />
           <Property Name="CreatedBy" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Biddings" Relationship="Self.FK_Bidding_Auction" FromRole="Auction" ToRole="Bidding" />
           <NavigationProperty Name="Items" Relationship="Self.FK_Item_Auction" FromRole="Auction" ToRole="Item" />
           <Property Name="StartTime" Type="Time" Precision="7" />
           <Property Name="EndTime" Type="Time" Precision="7" />
@@ -285,22 +267,7 @@
           <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="DateCreated" Type="DateTime" Precision="3" />
           <Property Name="DateModified" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Biddings" Relationship="Self.FK_Bidding_Bidder" FromRole="Bidder" ToRole="Bidding" />
-        </EntityType>
-        <EntityType Name="Bidding">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="AuctionId" Type="Int64" Nullable="false" />
-          <Property Name="ItemId" Type="Int64" Nullable="false" />
-          <Property Name="BidderId" Type="Int64" />
-          <Property Name="Amount" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="DateCreated" Type="DateTime" Precision="3" />
-          <Property Name="DateModified" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Auction" Relationship="Self.FK_Bidding_Auction" FromRole="Bidding" ToRole="Auction" />
-          <NavigationProperty Name="Bidder" Relationship="Self.FK_Bidding_Bidder" FromRole="Bidding" ToRole="Bidder" />
-          <NavigationProperty Name="Item" Relationship="Self.FK_Bidding_Item" FromRole="Bidding" ToRole="Item" />
+          <NavigationProperty Name="Biddings" Relationship="SoftInc.Auctions.Business.FK_Bidding_Bidder" FromRole="Bidder" ToRole="Bidding" />
         </EntityType>
         <EntityType Name="Item">
           <Key>
@@ -316,12 +283,12 @@
           <Property Name="DateCreated" Type="DateTime" Precision="3" />
           <Property Name="DateModified" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Auction" Relationship="Self.FK_Item_Auction" FromRole="Item" ToRole="Auction" />
-          <NavigationProperty Name="Biddings" Relationship="Self.FK_Bidding_Item" FromRole="Item" ToRole="Bidding" />
           <NavigationProperty Name="ItemCategory" Relationship="Self.FK_Item_ItemCategory" FromRole="Item" ToRole="ItemCategory" />
           <NavigationProperty Name="ItemSubCategory" Relationship="Self.FK_Item_ItemSubCategory" FromRole="Item" ToRole="ItemSubCategory" />
           <NavigationProperty Name="ItemImages" Relationship="Self.FK_ItemImages_Item" FromRole="Item" ToRole="ItemImages" />
           <Property Name="ReservePrice" Type="Decimal" Precision="18" Scale="3" />
           <Property Name="IsSold" Type="Boolean" />
+          <NavigationProperty Name="Biddings" Relationship="SoftInc.Auctions.Business.FK_Bidding_Item" FromRole="Item" ToRole="Bidding" />
         </EntityType>
         <EntityType Name="ItemCategory">
           <Key>
@@ -360,18 +327,6 @@
           <NavigationProperty Name="Items" Relationship="Self.FK_Item_ItemSubCategory" FromRole="ItemSubCategory" ToRole="Item" />
           <NavigationProperty Name="ItemCategory" Relationship="Self.FK_ItemSubCategory_ItemCategory" FromRole="ItemSubCategory" ToRole="ItemCategory" />
         </EntityType>
-        <Association Name="FK_Bidding_Auction">
-          <End Role="Auction" Type="Self.Auction" Multiplicity="1" />
-          <End Role="Bidding" Type="Self.Bidding" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Auction">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Bidding">
-              <PropertyRef Name="AuctionId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Item_Auction">
           <End Role="Auction" Type="Self.Auction" Multiplicity="0..1" />
           <End Role="Item" Type="Self.Item" Multiplicity="*" />
@@ -381,30 +336,6 @@
             </Principal>
             <Dependent Role="Item">
               <PropertyRef Name="AuctionId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Bidding_Bidder">
-          <End Role="Bidder" Type="Self.Bidder" Multiplicity="0..1" />
-          <End Role="Bidding" Type="Self.Bidding" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Bidder">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Bidding">
-              <PropertyRef Name="BidderId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Bidding_Item">
-          <End Role="Item" Type="Self.Item" Multiplicity="1" />
-          <End Role="Bidding" Type="Self.Bidding" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Item">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Bidding">
-              <PropertyRef Name="ItemId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -459,26 +390,13 @@
         <EntityContainer Name="AuctionsContext" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Auctions" EntityType="Self.Auction" />
           <EntitySet Name="Bidders" EntityType="Self.Bidder" />
-          <EntitySet Name="Biddings" EntityType="Self.Bidding" />
           <EntitySet Name="Items" EntityType="Self.Item" />
           <EntitySet Name="ItemCategories" EntityType="Self.ItemCategory" />
           <EntitySet Name="ItemImages" EntityType="Self.ItemImage" />
           <EntitySet Name="ItemSubCategories" EntityType="Self.ItemSubCategory" />
-          <AssociationSet Name="FK_Bidding_Auction" Association="Self.FK_Bidding_Auction">
-            <End Role="Auction" EntitySet="Auctions" />
-            <End Role="Bidding" EntitySet="Biddings" />
-          </AssociationSet>
           <AssociationSet Name="FK_Item_Auction" Association="Self.FK_Item_Auction">
             <End Role="Auction" EntitySet="Auctions" />
             <End Role="Item" EntitySet="Items" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Bidding_Bidder" Association="Self.FK_Bidding_Bidder">
-            <End Role="Bidder" EntitySet="Bidders" />
-            <End Role="Bidding" EntitySet="Biddings" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Bidding_Item" Association="Self.FK_Bidding_Item">
-            <End Role="Item" EntitySet="Items" />
-            <End Role="Bidding" EntitySet="Biddings" />
           </AssociationSet>
           <AssociationSet Name="FK_Item_ItemCategory" Association="Self.FK_Item_ItemCategory">
             <End Role="ItemCategory" EntitySet="ItemCategories" />
@@ -496,7 +414,53 @@
             <End Role="ItemCategory" EntitySet="ItemCategories" />
             <End Role="ItemSubCategory" EntitySet="ItemSubCategories" />
           </AssociationSet>
+          <EntitySet Name="Biddings" EntityType="SoftInc.Auctions.Business.Bidding" />
+          <AssociationSet Name="FK_Bidding_Bidder" Association="SoftInc.Auctions.Business.FK_Bidding_Bidder">
+            <End Role="Bidder" EntitySet="Bidders" />
+            <End Role="Bidding" EntitySet="Biddings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Bidding_Item" Association="SoftInc.Auctions.Business.FK_Bidding_Item">
+            <End Role="Item" EntitySet="Items" />
+            <End Role="Bidding" EntitySet="Biddings" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Bidding">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ItemId" Type="Int64" Nullable="false" />
+          <Property Name="BidderId" Type="Int64" />
+          <Property Name="Amount" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+          <Property Name="DateModified" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Bidder" Relationship="SoftInc.Auctions.Business.FK_Bidding_Bidder" FromRole="Bidding" ToRole="Bidder" />
+          <NavigationProperty Name="Item" Relationship="SoftInc.Auctions.Business.FK_Bidding_Item" FromRole="Bidding" ToRole="Item" />
+        </EntityType>
+        <Association Name="FK_Bidding_Bidder">
+          <End Type="SoftInc.Auctions.Business.Bidder" Role="Bidder" Multiplicity="0..1" />
+          <End Type="SoftInc.Auctions.Business.Bidding" Role="Bidding" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bidder">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Bidding">
+              <PropertyRef Name="BidderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Bidding_Item">
+          <End Type="SoftInc.Auctions.Business.Item" Role="Item" Multiplicity="1" />
+          <End Type="SoftInc.Auctions.Business.Bidding" Role="Bidding" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Item">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Bidding">
+              <PropertyRef Name="ItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -539,19 +503,6 @@
                 <ScalarProperty Name="PostCode" ColumnName="PostCode" />
                 <ScalarProperty Name="VerificationIDString" ColumnName="VerificationIDString" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
-                <ScalarProperty Name="DateModified" ColumnName="DateModified" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Biddings">
-            <EntityTypeMapping TypeName="SoftInc.Auctions.Business.Bidding">
-              <MappingFragment StoreEntitySet="Bidding">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="AuctionId" ColumnName="AuctionId" />
-                <ScalarProperty Name="ItemId" ColumnName="ItemId" />
-                <ScalarProperty Name="BidderId" ColumnName="BidderId" />
-                <ScalarProperty Name="Amount" ColumnName="Amount" />
                 <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
                 <ScalarProperty Name="DateModified" ColumnName="DateModified" />
               </MappingFragment>
@@ -606,6 +557,18 @@
                 <ScalarProperty Name="SubCategoryDescription" ColumnName="SubCategoryDescription" />
                 <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
                 <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Biddings">
+            <EntityTypeMapping TypeName="SoftInc.Auctions.Business.Bidding">
+              <MappingFragment StoreEntitySet="Bidding">
+                <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="BidderId" ColumnName="BidderId" />
+                <ScalarProperty Name="ItemId" ColumnName="ItemId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

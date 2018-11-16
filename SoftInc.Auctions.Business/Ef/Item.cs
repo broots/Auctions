@@ -17,8 +17,8 @@ namespace SoftInc.Auctions.Business.Ef
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Item()
         {
-            this.Biddings = new HashSet<Bidding>();
             this.ItemImages = new HashSet<ItemImage>();
+            this.Biddings = new HashSet<Bidding>();
         }
     
         public long Id { get; set; }
@@ -34,11 +34,11 @@ namespace SoftInc.Auctions.Business.Ef
         public Nullable<bool> IsSold { get; set; }
     
         public virtual Auction Auction { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Bidding> Biddings { get; set; }
         public virtual ItemCategory ItemCategory { get; set; }
         public virtual ItemSubCategory ItemSubCategory { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ItemImage> ItemImages { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Bidding> Biddings { get; set; }
     }
 }

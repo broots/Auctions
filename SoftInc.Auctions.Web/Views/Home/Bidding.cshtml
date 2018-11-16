@@ -24,36 +24,6 @@
     <div class="box-body">
         <!-- Conversations are loaded here -->
         <div class="direct-chat-messages" id="discussionLte">
-            @*<!-- Message. Default to the left -->
-            <div class="direct-chat-msg">
-                <div class="direct-chat-info clearfix">
-                    <span class="direct-chat-name pull-left">Alexander Pierce</span>
-                    <span class="direct-chat-timestamp pull-right">23 Jan 2:00 pm</span>
-                </div>
-                <!-- /.direct-chat-info -->
-                <img class="direct-chat-img" src="~/admin-lte/img/user1-128x128.jpg" alt="message user image">
-                <!-- /.direct-chat-img -->
-                <div class="direct-chat-text">
-                    Is this template really for free? That's unbelievable!
-                </div>
-                <!-- /.direct-chat-text -->
-            </div>
-            <!-- /.direct-chat-msg -->
-            <!-- Message to the right -->
-            <div class="direct-chat-msg right">
-                <div class="direct-chat-info clearfix">
-                    <span class="direct-chat-name pull-right">Sarah Bullock</span>
-                    <span class="direct-chat-timestamp pull-left">23 Jan 2:05 pm</span>
-                </div>
-                <!-- /.direct-chat-info -->
-                <img class="direct-chat-img" src="~/admin-lte/img/user3-128x128.jpg" alt="message user image">
-                <!-- /.direct-chat-img -->
-                <div class="direct-chat-text">
-                    You better believe it!
-                </div>
-                <!-- /.direct-chat-text -->
-            </div>*@
-            <!-- /.direct-chat-msg -->
         </div>
         <!--/.direct-chat-messages-->
         <!-- Contacts are loaded here -->
@@ -91,22 +61,7 @@
 </div>
 <!--/.direct-chat -->
 
-@*<fieldset>
-    <legend style="color:orangered">Bidding</legend>
-</fieldset>
-<div class="form-group col-xl-12">
-    <label style="color: blue; font-style: oblique;font-size: medium" id="label1">Enter Bid Here!</label><br />
-    <textarea class="form-control" rows="4" cols="40" id="message" placeholder="Bid amount..."></textarea>
-    <br />
-    <input type="button" class="btn btn-primary" id="sendbid" value="Place Bid" />
-    <br />
-    <br />
-    <label style="color: blue;font-style:oblique;font-size:medium" id="label2">Bidding History</label>
-    <div class="container chatArea">
-        <input type="hidden" id="displayname" value="@ViewBag.User" />
-            <ul id="discussion"></ul>
-    </div>
-</div>*@
+
 
 @section scripts {
     <script src="~/Scripts/jquery.signalR-2.3.0.min.js"></script>
@@ -119,11 +74,8 @@
                 $('#discussionLte').append('<div class="direct-chat-msg"><div class= "direct-chat-info clearfix"><span class="direct-chat-name pull-left">@ViewBag.User</span>'
                     + '<span class="direct-chat-timestamp pull-right">23 Jan 2:00 pm</span></div ><img class= "direct-chat-img" src = "../../admin-lte/img/user1-128x128.jpg" alt = "message user image" >'
                     + '<div class= "direct-chat-text">' + message + '</div ></div >')
-
-                //$('#discussion').append('<ul style="list-style-type:square"><li><strong style="color:red;font-style:normal;font-size:medium;text-transform:uppercase">' + htmlEncode(name) + '  ' + '<strong style="color:black;font-style:normal;font-size:medium;text-transform:lowercase">said</strong>'
-                //    + '</strong>: ' + '<strong style="color:blue;font-style:oblique;font-size:medium">' + htmlEncode(message) + '</strong>' + '</li></ul>');
             };
-            //$('#displayname').val(prompt('Your Good Name Please:', ''));
+
             $('#message').focus();
             $.connection.hub.start().done(function () {
                 $('#sendbid').click(function () {

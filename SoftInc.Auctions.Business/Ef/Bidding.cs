@@ -15,14 +15,12 @@ namespace SoftInc.Auctions.Business.Ef
     public partial class Bidding
     {
         public long Id { get; set; }
-        public long AuctionId { get; set; }
         public long ItemId { get; set; }
         public Nullable<long> BidderId { get; set; }
         public Nullable<decimal> Amount { get; set; }
         public Nullable<System.DateTime> DateCreated { get; set; }
         public Nullable<System.DateTime> DateModified { get; set; }
     
-        public virtual Auction Auction { get; set; }
         public virtual Bidder Bidder { get; set; }
         public virtual Item Item { get; set; }
     }

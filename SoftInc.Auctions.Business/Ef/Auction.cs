@@ -17,7 +17,6 @@ namespace SoftInc.Auctions.Business.Ef
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Auction()
         {
-            this.Biddings = new HashSet<Bidding>();
             this.Items = new HashSet<Item>();
         }
     
@@ -33,8 +32,6 @@ namespace SoftInc.Auctions.Business.Ef
         public Nullable<System.TimeSpan> StartTime { get; set; }
         public Nullable<System.TimeSpan> EndTime { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Bidding> Biddings { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Item> Items { get; set; }
     }

@@ -27,10 +27,10 @@ namespace SoftInc.Auctions.Business.Ef
     
         public virtual DbSet<Auction> Auctions { get; set; }
         public virtual DbSet<Bidder> Bidders { get; set; }
-        public virtual DbSet<Bidding> Biddings { get; set; }
         public virtual DbSet<Item> Items { get; set; }
         public virtual DbSet<ItemCategory> ItemCategories { get; set; }
         public virtual DbSet<ItemImage> ItemImages { get; set; }
         public virtual DbSet<ItemSubCategory> ItemSubCategories { get; set; }
+        public virtual DbSet<Bidding> Biddings { get; set; }
     }
 }

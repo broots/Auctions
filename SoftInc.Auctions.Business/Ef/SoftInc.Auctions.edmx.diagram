@@ -7,19 +7,18 @@
       <Diagram DiagramId="57953e767bad478b9bd62c4f164ed67a" Name="Diagram1">
         <EntityTypeShape EntityType="SoftInc.Auctions.Business.Auction" Width="1.5" PointX="0.75" PointY="4" IsExpanded="true" />
         <EntityTypeShape EntityType="SoftInc.Auctions.Business.Bidder" Width="1.5" PointX="0.75" PointY="11" IsExpanded="true" />
-        <EntityTypeShape EntityType="SoftInc.Auctions.Business.Bidding" Width="1.5" PointX="3" PointY="4.125" IsExpanded="true" />
         <EntityTypeShape EntityType="SoftInc.Auctions.Business.Item" Width="1.5" PointX="6" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="SoftInc.Auctions.Business.ItemCategory" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="SoftInc.Auctions.Business.ItemImage" Width="1.5" PointX="8.25" PointY="4.375" IsExpanded="true" />
         <EntityTypeShape EntityType="SoftInc.Auctions.Business.ItemSubCategory" Width="1.5" PointX="3.75" PointY="7.875" IsExpanded="true" />
-        <AssociationConnector Association="SoftInc.Auctions.Business.FK_Bidding_Auction" ManuallyRouted="false" />
         <AssociationConnector Association="SoftInc.Auctions.Business.FK_Item_Auction" ManuallyRouted="false" />
-        <AssociationConnector Association="SoftInc.Auctions.Business.FK_Bidding_Bidder" ManuallyRouted="false" />
-        <AssociationConnector Association="SoftInc.Auctions.Business.FK_Bidding_Item" ManuallyRouted="false" />
         <AssociationConnector Association="SoftInc.Auctions.Business.FK_Item_ItemCategory" ManuallyRouted="false" />
         <AssociationConnector Association="SoftInc.Auctions.Business.FK_Item_ItemSubCategory" ManuallyRouted="false" />
         <AssociationConnector Association="SoftInc.Auctions.Business.FK_ItemImages_Item" ManuallyRouted="false" />
         <AssociationConnector Association="SoftInc.Auctions.Business.FK_ItemSubCategory_ItemCategory" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="SoftInc.Auctions.Business.Bidding" Width="1.5" PointX="8.25" PointY="8.375" />
+        <AssociationConnector Association="SoftInc.Auctions.Business.FK_Bidding_Bidder" />
+        <AssociationConnector Association="SoftInc.Auctions.Business.FK_Bidding_Item" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
