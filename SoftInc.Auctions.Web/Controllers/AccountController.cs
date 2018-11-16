@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using AutoMapper;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using SoftInc.Auctions.Business.Ef;
+using SoftInc.Auctions.Business.Managers;
 using SoftInc.Auctions.Web.Models;
 using System;
 using System.Collections.Generic;
@@ -153,6 +156,13 @@ namespace SoftInc.Auctions.Web.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    var bidder = Mapper.Map<Bidder>(user);
+                    bidder.UserId = user.Id;
+                    bidder.DateCreated = DateTime.Now;
+                    bidder.DateModified = DateTime.Now;
+                    var dataMng = new DataManager<Bidder>();
+                    var b = await dataMng.Save(bidder);
+
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771

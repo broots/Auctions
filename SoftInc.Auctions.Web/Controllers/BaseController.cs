@@ -18,7 +18,7 @@ namespace SoftInc.Auctions.Web.Controllers
         {
             _auctionController = new AuctionController();
 
-            UserName = User.Identity.GetUserName(); // this.HttpContext?.User.Identity.Name;
+            UserName = User?.Identity?.GetUserName(); // this.HttpContext?.User.Identity.Name;
 
             ViewBag.User = !string.IsNullOrEmpty(UserName) ? UserName : "Anonymous";
             ViewBag.PageHeader = PageHeader;
