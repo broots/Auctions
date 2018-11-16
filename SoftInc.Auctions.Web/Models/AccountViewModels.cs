@@ -68,6 +68,35 @@ namespace SoftInc.Auctions.Web.Models
     public class RegisterViewModel
     {
         [Required]
+        [Display(Name = "First Name")]
+        public string FirstName { get; set; }
+
+        [Display(Name = "Middle Name")]
+        public string MiddleName { get; set; }
+
+        [Required]
+        [Display(Name = "Last Name")]
+        public string LastName { get; set; }
+
+        [Display(Name = "Date Of Birth")]
+        public DateTime? DoB { get; set; }
+
+        [Display(Name = "Contact Number")]
+        public string ContactNumber { get; set; }
+
+        [Display(Name = "Address Line 1")]
+        public string Address1 { get; set; }
+
+        [Display(Name = "Address Line 2")]
+        public string Address2 { get; set; }
+
+        public string City { get; set; }
+        public string Town { get; set; }
+
+        [Display(Name = "Post Code")]
+        public string PostCode { get; set; }
+
+        [Required]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -17,7 +18,7 @@ namespace SoftInc.Auctions.Web.Controllers
         {
             _auctionController = new AuctionController();
 
-            UserName = this.HttpContext?.User.Identity.Name;
+            UserName = User.Identity.GetUserName(); // this.HttpContext?.User.Identity.Name;
 
             ViewBag.User = !string.IsNullOrEmpty(UserName) ? UserName : "Anonymous";
             ViewBag.PageHeader = PageHeader;
