@@ -1,19 +1,26 @@
-﻿
+﻿@model SoftInc.Auctions.Web.Models.ExtendedItemModel
 @{
     /**/
 
     ViewBag.Title = "Bidding";
+    var maxBid = Model.Biddings.OrderByDescending(x => x.Amount).FirstOrDefault()?.Amount ?? 0;
+    var numBids = Model.Biddings?.Count;
+    numBids = numBids.GetValueOrDefault(0);
+
+    var bidderId = Session["bidderId"];
+    var itmId = Model.Id;
+
+    var fName = Session["Name"] ?? "Anonymous"; 
 }
 
-<h2>Bidding</h2>
 <!-- Construct the box with style you want. Here we are using box-danger -->
 <!-- Then add the class direct-chat and choose the direct-chat-* contexual class -->
 <!-- The contextual class should match the box, so we are using direct-chat-danger -->
 <div class="box box-danger direct-chat direct-chat-danger">
     <div class="box-header with-border">
-        <h3 class="box-title">Bidding</h3>
+        <h3 class="box-title">Bidding - @Model.ItemName</h3>
         <div class="box-tools pull-right">
-            <span data-toggle="tooltip" title="3 New Messages" class="badge bg-red">3</span>
+            <span data-toggle="tooltip" title="@numBids bids" class="badge bg-red">@numBids</span>
             <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
             <!-- In box-tools add this button if you intend to use the contacts pane -->
             <button class="btn btn-box-tool" data-toggle="tooltip" title="Contacts" data-widget="chat-pane-toggle"><i class="fa fa-comments"></i></button>
@@ -51,13 +58,16 @@
     <!-- /.box-body -->
     <div class="box-footer">
         <div class="input-group">
-            <input type="text" name="message" placeholder="Bid amount ..." class="form-control" id="message">
+            <input type="text" name="bidAmt" placeholder="Bid amount ..." class="form-control" id="bidAmt">
             <span class="input-group-btn">
                 <button type="button" id="sendbid" class="btn btn-danger btn-flat">Place Bid</button>
             </span>
         </div>
     </div>
     <!-- /.box-footer-->
+    <input type="hidden" id="msgToggle" />
+    <input type="hidden" id="fName" />
+    <input type="hidden" id="bId" />
 </div>
 <!--/.direct-chat -->
 
@@ -69,18 +79,29 @@
     <script>
 
         $(function () {
+            var mTog = $('#msgToggle').val();
+            var fName = $('#fName').val();
+            var bid = $('#bId').val();
             var chat = $.connection.auctionHub;
-            chat.client.addNewMessageToPage = function (name, message) {
-                $('#discussionLte').append('<div class="direct-chat-msg"><div class= "direct-chat-info clearfix"><span class="direct-chat-name pull-left">@ViewBag.User</span>'
+            chat.client.addNewMessageToPage = function (name, bid) {
+                $('#discussionLte').append("<div class=\"direct-chat-msg '" +mTog+"'><div class= 'direct-chat-info clearfix'><span class='direct-chat-name pull-left'>@ViewBag.User</span>"
                     + '<span class="direct-chat-timestamp pull-right">23 Jan 2:00 pm</span></div ><img class= "direct-chat-img" src = "../../admin-lte/img/user1-128x128.jpg" alt = "message user image" >'
-                    + '<div class= "direct-chat-text">' + message + '</div ></div >')
+                    + '<div class= "direct-chat-text">' + bid + '</div ></div >')
             };
 
-            $('#message').focus();
+            $('#msgToggle').val() == '' ? $('#msgToggle').val('right') : $('#msgToggle').val('');
+
+            $('#bidAmt').focus();
+            //$.connection.hub.start().done(function () {
+            //    $('#sendbid').click(function () {
+            //        chat.server.send($('#displayname').val(), $('#bidAmt').val());
+            //        $('#bidAmt').val('').focus();
+            //    });
+            //});
             $.connection.hub.start().done(function () {
                 $('#sendbid').click(function () {
-                    chat.server.send($('#displayname').val(), $('#message').val());
-                    $('#message').val('').focus();
+                    chat.server.bid('@fName', '@bidderId', '@itmId',  $('#bidAmt').val());
+                    $('#bidAmt').val('').focus();
                 });
             });
         });

@@ -18,9 +18,11 @@ namespace SoftInc.Auctions.Web.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private IRepository<Bidder> dataMng;
 
         public AccountController()
         {
+            dataMng = new DataManager<Bidder>();
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
@@ -80,6 +82,7 @@ namespace SoftInc.Auctions.Web.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
+                    await GetBidder(model.Email);
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
@@ -156,12 +159,13 @@ namespace SoftInc.Auctions.Web.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    var bidder = Mapper.Map<Bidder>(user);
+                    var bidder = Mapper.Map<Bidder>(model);
                     bidder.UserId = user.Id;
                     bidder.DateCreated = DateTime.Now;
                     bidder.DateModified = DateTime.Now;
-                    var dataMng = new DataManager<Bidder>();
+                    //var dataMng = new DataManager<Bidder>();
                     var b = await dataMng.Save(bidder);
+                    SetBidder(b);
 
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
@@ -179,6 +183,11 @@ namespace SoftInc.Auctions.Web.Controllers
             // If we got this far, something failed, redisplay form
             return View(model);
         }
+
+        //private Bidder MappUserToBidder(ApplicationUser user)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         //
         // GET: /Account/ConfirmEmail
@@ -429,6 +438,23 @@ namespace SoftInc.Auctions.Web.Controllers
             }
 
             base.Dispose(disposing);
+        }
+
+        private async Task<Bidder> GetBidder(string email)
+        {
+            var u = await UserManager.FindByEmailAsync(email);
+            var userId = u.Id;
+            var result = await dataMng.Search(m => m.UserId == userId);
+            var bidder = result.FirstOrDefault();
+            SetBidder(bidder);
+
+            return bidder;
+        }
+
+        private void SetBidder(Bidder b)
+        {
+            Session["bidderId"] = b?.Id;
+            Session["Name"] = $"{b.FirstName}";
         }
 
         #region Helpers

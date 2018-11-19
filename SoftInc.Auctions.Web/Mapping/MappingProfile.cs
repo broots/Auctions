@@ -18,10 +18,14 @@ namespace SoftInc.Auctions.Web.Mapping
                 cfg.CreateMap<SubCategoryModel, ItemSubCategory>();
                 cfg.CreateMap<ItemModel, Item>();
                 cfg.CreateMap<Item, ItemModel>();
+                cfg.CreateMap<ExtendedItemModel, Item>();
+                cfg.CreateMap<Item, ExtendedItemModel>();
                 cfg.CreateMap<Auction, AuctionModel>();
                 cfg.CreateMap<AuctionModel, Auction>();
                 cfg.CreateMap<RegisterViewModel, Bidder>();
                 cfg.CreateMap<Bidder, RegisterViewModel>();
+                cfg.CreateMap<Bidding, BiddingModel>();
+                cfg.CreateMap<BiddingModel, Bidding>();
             });
         }
     }

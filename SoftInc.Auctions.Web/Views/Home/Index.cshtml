@@ -1,18 +1,21 @@
 ﻿@model IEnumerable<SoftInc.Auctions.Web.Models.AuctionModel>
 <!-- Apply any bg-* class to to the info-box to color it -->
-@{ 
+@{
     var colours = new Dictionary<int, string>
-    {
-        { 0, "bg-red" },
-        { 1, "bg-yellow" },
-        { 5, "bg-green" },
-        { 10, "bg-aqua" },
-    };
+{
+{ 0, "bg-red" },
+{ 1, "bg-yellow" },
+{ 5, "bg-green" },
+{ 10, "bg-aqua" },
+};
 }
 
-    @foreach (var auction in Model)
+@if (Model?.Count() > 0)
+{
+    foreach (var auction in Model)
     {
         var numDays = (auction.StartDate.GetValueOrDefault() - DateTime.Today).Days;
+        var auctionLabelTxt = numDays > 0 ? $"{numDays} Day(s) till auction" : "Ongoing auction";
         var numDaysFromCreation = (auction.StartDate.GetValueOrDefault() - auction.DateCreated.GetValueOrDefault()).Days;
         var perc = (double)numDays / numDaysFromCreation;
         var percTxt = string.Format("{0:0.0%}", perc);
@@ -32,13 +35,40 @@
                             <div class="progress-bar" style="width: @percTxt"></div>
                         </div>
                         <span class="progress-description">
-                            @numDays Day(s) till auction
+                            @auctionLabelTxt
                         </span>
                     </div>
                     <!-- /.info-box-content -->
                 </div>
             </div>
         </a>
+            }
+        }
+        else
+        {
+
+           <div class="box">
+                <div class="box-header with-border">
+                <h3 class="box-title">.....</h3>
+                <div class="box-tools pull-right">
+                  <!-- Buttons, labels, and many other things can be placed here! -->
+                  <!-- Here is a label for example -->
+                  <!--span class="label label-primary">Label</!--span-->
+                </div>
+            <!-- /.box-tools -->
+              </div>
+              <!-- /.box-header -->
+              <div class="box-body">
+                No auctions....
+              </div>
+              <!-- /.box-body -->
+              <div class="box-footer">
+                
+              </div>
+              <!-- box-footer -->
+        </div>
+        <!-- /.box -->
+
 }
 
 

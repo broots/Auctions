@@ -28,9 +28,11 @@ namespace SoftInc.Auctions.Web.Controllers
             return View(items);
         }
 
-        public ActionResult Bidding(long id)
+        [Authorize]
+        public async Task<ActionResult> Bidding(long itemId)
         {
-            return View();
+            var data = await _itemController.GetItemAndBids(itemId);
+            return View(data);
         }
     }
 }

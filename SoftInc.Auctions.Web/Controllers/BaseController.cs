@@ -10,6 +10,7 @@ namespace SoftInc.Auctions.Web.Controllers
     public class BaseController : Controller
     {
         protected AuctionController _auctionController;
+        protected ItemController _itemController;
         protected string PageHeader { get; set; }
         protected string PageDescription { get; set; }
         protected string UserName { get; set; }
@@ -17,6 +18,7 @@ namespace SoftInc.Auctions.Web.Controllers
         public BaseController()
         {
             _auctionController = new AuctionController();
+            _itemController = new ItemController();
 
             UserName = User?.Identity?.GetUserName(); // this.HttpContext?.User.Identity.Name;
 

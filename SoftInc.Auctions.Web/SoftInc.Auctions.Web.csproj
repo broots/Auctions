@@ -273,6 +273,8 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AuctionModel.cs" />
     <Compile Include="Models\BaseModel.cs" />
+    <Compile Include="Models\BiddingModel.cs" />
+    <Compile Include="Models\ExtendedItemModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ItemCategoryBaseModel.cs" />
     <Compile Include="Models\ItemModel.cs" />

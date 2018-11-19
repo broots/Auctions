@@ -35,5 +35,6 @@ namespace SoftInc.Auctions.Web.Controllers
             var result = await GetById<AuctionModel>(m => m.Id == id, m => m.Items);
             return result;
         }
+
     }
 }

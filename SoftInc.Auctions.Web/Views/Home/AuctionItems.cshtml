@@ -42,7 +42,7 @@
                         @Html.DisplayFor(modelItem => item.ReservePrice)
                     </td>
                     <td>
-                        @Html.ActionLink("Bid", "Bidding", new { id = item.Id }, new { @class = "" }) 
+                        @Html.ActionLink("Bid", "Bidding", new { itemId = item.Id }, new { @class = "" }) 
                     </td>
                 </tr>
             }
