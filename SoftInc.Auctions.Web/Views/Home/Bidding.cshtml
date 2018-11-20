@@ -1,4 +1,5 @@
-﻿@model SoftInc.Auctions.Web.Models.ExtendedItemModel
+﻿@using System.Globalization;
+@model SoftInc.Auctions.Web.Models.ExtendedItemModel
 @{
     /**/
 
@@ -10,7 +11,28 @@
     var bidderId = Session["bidderId"];
     var itmId = Model.Id;
 
-    var fName = Session["Name"] ?? "Anonymous"; 
+    var fName = Session["Name"] ?? "Anonymous";
+
+    var userLanguages = Request.UserLanguages;
+    CultureInfo ci;
+    if (userLanguages.Count() > 0)
+    {
+        try
+        {
+            ci = new CultureInfo(userLanguages[0]);
+        }
+        catch (CultureNotFoundException)
+        {
+            ci = CultureInfo.InvariantCulture;
+        }
+    }
+    else
+    {
+        ci = CultureInfo.InvariantCulture;
+    }
+
+    //CultureInfo ci = new CultureInfo(UICulture);
+    var symbol = ci.NumberFormat.CurrencySymbol;
 }
 
 <!-- Construct the box with style you want. Here we are using box-danger -->
@@ -18,7 +40,7 @@
 <!-- The contextual class should match the box, so we are using direct-chat-danger -->
 <div class="box box-danger direct-chat direct-chat-danger">
     <div class="box-header with-border">
-        <h3 class="box-title">Bidding - @Model.ItemName</h3>
+        <h3 class="box-title">Bidding - @Model.ItemName (Reserve Price @string.Format("{0:C}", Model.ReservePrice))</h3>
         <div class="box-tools pull-right">
             <span data-toggle="tooltip" title="@numBids bids" class="badge bg-red">@numBids</span>
             <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
@@ -58,7 +80,8 @@
     <!-- /.box-body -->
     <div class="box-footer">
         <div class="input-group">
-            <input type="text" name="bidAmt" placeholder="Bid amount ..." class="form-control" id="bidAmt">
+            <span class="input-group-addon">@symbol</span>
+            <input type="text" name="bidAmt" placeholder="Bid amount ..." class="form-control allownumericwithdecimal" id="bidAmt">
             <span class="input-group-btn">
                 <button type="button" id="sendbid" class="btn btn-danger btn-flat">Place Bid</button>
             </span>
@@ -79,6 +102,14 @@
     <script>
 
         $(function () {
+            $(".allownumericwithdecimal").on("keypress keyup blur", function (event) {
+                //this.value = this.value.replace(/[^0-9\.]/g,'');
+                $(this).val($(this).val().replace(/[^0-9\.]/g, ''));
+                if ((event.which != 46 || $(this).val().indexOf('.') != -1) && (event.which < 48 || event.which > 57)) {
+                    event.preventDefault();
+                }
+            });
+
             var mTog = $('#msgToggle').val();
             var fName = $('#fName').val();
             var bid = $('#bId').val();

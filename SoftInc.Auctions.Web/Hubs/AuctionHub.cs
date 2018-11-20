@@ -35,10 +35,15 @@ namespace SoftInc.Auctions.Web.Hubs
 
             if (long.TryParse(bidderId, out bId) && long.TryParse(itemId, out itmId) && decimal.TryParse(amount, out amt))
             {
+                var i = Task.Run(async () => await _biddingManager.Search(x => x.ItemId == itmId));
+                var itm = i.Result.OrderByDescending(x => x.Amount).FirstOrDefault();
+                var maxBid = itm?.Amount.GetValueOrDefault();
+
+                var msg = amt > maxBid ? $"Current Max bid {amt:C}" : $"Your bid of {amt:C} below current max bid {maxBid:C}";
                 //var b = await _
                 var b = Task.Run(async () => await _biddingManager.Save(new Bidding { BidderId = bId, Amount = amt, ItemId = itmId, DateCreated = DateTime.Now, DateModified = DateTime.Now }));
                 var r = b.Result;
-                Clients.All.addNewMessageToPage(name, amount);
+                Clients.All.addNewMessageToPage(name, msg);
             }
 
         }

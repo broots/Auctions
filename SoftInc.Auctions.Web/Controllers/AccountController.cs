@@ -14,7 +14,7 @@ using System.Web.Mvc;
 
 namespace SoftInc.Auctions.Web.Controllers
 {
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
@@ -440,7 +440,7 @@ namespace SoftInc.Auctions.Web.Controllers
             base.Dispose(disposing);
         }
 
-        private async Task<Bidder> GetBidder(string email)
+        public async Task<Bidder> GetBidder(string email)
         {
             var u = await UserManager.FindByEmailAsync(email);
             var userId = u.Id;

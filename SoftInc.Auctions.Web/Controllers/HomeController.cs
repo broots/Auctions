@@ -31,6 +31,12 @@ namespace SoftInc.Auctions.Web.Controllers
         [Authorize]
         public async Task<ActionResult> Bidding(long itemId)
         {
+            if (User?.Identity != null && User.Identity.IsAuthenticated && Session["bidderId"] == null)
+            {
+                var ac = new AccountController();
+                var b = await ac.GetBidder(User.Identity.Name);
+            }
+
             var data = await _itemController.GetItemAndBids(itemId);
             return View(data);
         }

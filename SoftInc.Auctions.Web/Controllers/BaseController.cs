@@ -26,5 +26,6 @@ namespace SoftInc.Auctions.Web.Controllers
             ViewBag.PageHeader = PageHeader;
             ViewBag.PageDescription = PageDescription;
         }
+
     }
 }
