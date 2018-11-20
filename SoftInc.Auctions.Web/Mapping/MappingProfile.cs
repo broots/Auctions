@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using SoftInc.Auctions.Business.Ef;
+using SoftInc.Auctions.Web.Helpers;
 using SoftInc.Auctions.Web.Models;
 using System;
 using System.Collections.Generic;
@@ -19,7 +20,7 @@ namespace SoftInc.Auctions.Web.Mapping
                 cfg.CreateMap<ItemModel, Item>();
                 cfg.CreateMap<Item, ItemModel>();
                 cfg.CreateMap<ExtendedItemModel, Item>();
-                cfg.CreateMap<Item, ExtendedItemModel>();
+                cfg.CreateMap<Item, ExtendedItemModel>().IgnoreAllNonExisting();
                 cfg.CreateMap<Auction, AuctionModel>();
                 cfg.CreateMap<AuctionModel, Auction>();
                 cfg.CreateMap<RegisterViewModel, Bidder>();

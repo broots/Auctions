@@ -116,7 +116,7 @@
             var chat = $.connection.auctionHub;
             chat.client.addNewMessageToPage = function (name, bid) {
                 $('#discussionLte').append("<div class=\"direct-chat-msg '" +mTog+"'><div class= 'direct-chat-info clearfix'><span class='direct-chat-name pull-left'>@ViewBag.User</span>"
-                    + '<span class="direct-chat-timestamp pull-right">23 Jan 2:00 pm</span></div ><img class= "direct-chat-img" src = "../../admin-lte/img/user1-128x128.jpg" alt = "message user image" >'
+                    + '<span class="direct-chat-timestamp pull-right">@DateTime.Now.ToString("r")</span></div ><img class= "direct-chat-img" src = "../../admin-lte/img/user1-128x128.jpg" alt = "message user image" >'
                     + '<div class= "direct-chat-text">' + bid + '</div ></div >')
             };
 

@@ -440,23 +440,6 @@ namespace SoftInc.Auctions.Web.Controllers
             base.Dispose(disposing);
         }
 
-        public async Task<Bidder> GetBidder(string email)
-        {
-            var u = await UserManager.FindByEmailAsync(email);
-            var userId = u.Id;
-            var result = await dataMng.Search(m => m.UserId == userId);
-            var bidder = result.FirstOrDefault();
-            SetBidder(bidder);
-
-            return bidder;
-        }
-
-        private void SetBidder(Bidder b)
-        {
-            Session["bidderId"] = b?.Id;
-            Session["Name"] = $"{b.FirstName}";
-        }
-
         #region Helpers
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";

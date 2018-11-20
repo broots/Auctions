@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity.Owin;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,6 +10,16 @@ namespace SoftInc.Auctions.Web.Controllers
 {
     public class HomeController : BaseController
     {
+        public HomeController()
+        {
+            if (User?.Identity != null && User.Identity.IsAuthenticated && Session["bidderId"] == null)
+            {
+                var um = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                var b = Task.Run(async () => await GetBidder(User.Identity.Name, um));
+                var br = b.Result;
+            }
+
+        }
         public async Task<ActionResult> Index()
         {
             ViewBag.Title = "Home Page";
@@ -24,6 +35,7 @@ namespace SoftInc.Auctions.Web.Controllers
         {
             var auction = await _auctionController.GetAuctionById(id);
             var items = auction.Items;
+            items.ForEach(x => x.AuctionStartDate = auction.StartDate);
 
             return View(items);
         }
@@ -31,12 +43,6 @@ namespace SoftInc.Auctions.Web.Controllers
         [Authorize]
         public async Task<ActionResult> Bidding(long itemId)
         {
-            if (User?.Identity != null && User.Identity.IsAuthenticated && Session["bidderId"] == null)
-            {
-                var ac = new AccountController();
-                var b = await ac.GetBidder(User.Identity.Name);
-            }
-
             var data = await _itemController.GetItemAndBids(itemId);
             return View(data);
         }

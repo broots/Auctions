@@ -1,4 +1,4 @@
-﻿@model IEnumerable<SoftInc.Auctions.Web.Models.ItemModel>
+﻿@model  IEnumerable<SoftInc.Auctions.Web.Models.ItemModel>
 
 @{
     ViewBag.Title = "Auction Items";
@@ -42,7 +42,14 @@
                         @Html.DisplayFor(modelItem => item.ReservePrice)
                     </td>
                     <td>
-                        @Html.ActionLink("Bid", "Bidding", new { itemId = item.Id }, new { @class = "" }) 
+                        @if (item.AuctionStartDate.GetValueOrDefault() > DateTime.Today)
+                        {
+                            <span>Not Started</span>
+                        }
+                        else
+                        {
+                            @Html.ActionLink("Bid", "Bidding", new { itemId = item.Id }, new { @class = "" }) 
+                        }
                     </td>
                 </tr>
             }

@@ -49,5 +49,7 @@ namespace SoftInc.Auctions.Web.Models
         public List<HttpPostedFileBase> UploadFiles { get; set; }
 
         public List<string> Images { get; set; }
+
+        public DateTime? AuctionStartDate { get; set; }
     }
 }
