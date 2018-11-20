@@ -40,7 +40,10 @@
 <!-- The contextual class should match the box, so we are using direct-chat-danger -->
 <div class="box box-danger direct-chat direct-chat-danger">
     <div class="box-header with-border">
-        <h3 class="box-title">Bidding - @Model.ItemName (Reserve Price @string.Format("{0:C}", Model.ReservePrice))</h3>
+        <h3 class="box-title">
+            Bidding - @Model.ItemName (Reserve Price @string.Format("{0:C}", Model.ReservePrice))
+            <span id="maxAmt"></span>
+        </h3>
         <div class="box-tools pull-right">
             <span data-toggle="tooltip" title="@numBids bids" class="badge bg-red">@numBids</span>
             <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
@@ -114,10 +117,12 @@
             var fName = $('#fName').val();
             var bid = $('#bId').val();
             var chat = $.connection.auctionHub;
-            chat.client.addNewMessageToPage = function (name, bid) {
-                $('#discussionLte').append("<div class=\"direct-chat-msg '" +mTog+"'><div class= 'direct-chat-info clearfix'><span class='direct-chat-name pull-left'>@ViewBag.User</span>"
+            chat.client.addNewMessageToPage = function (name, bid, maxAmt) {
+                $('#discussionLte').append("<div class=\"direct-chat-msg '" + mTog + "'><div class= 'direct-chat-info clearfix'><span class='direct-chat-name pull-left'>@fName</span>"
                     + '<span class="direct-chat-timestamp pull-right">@DateTime.Now.ToString("r")</span></div ><img class= "direct-chat-img" src = "../../admin-lte/img/user1-128x128.jpg" alt = "message user image" >'
-                    + '<div class= "direct-chat-text">' + bid + '</div ></div >')
+                    + '<div class= "direct-chat-text">' + bid + '</div ></div >');
+
+                $('#maxAmt').append("Current Top Bid:" + maxAmt);
             };
 
             $('#msgToggle').val() == '' ? $('#msgToggle').val('right') : $('#msgToggle').val('');
