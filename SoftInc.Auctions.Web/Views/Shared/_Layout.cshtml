@@ -7,7 +7,7 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
-    @{ 
+    @{
         var name = Session["Name"] ?? "Anonymous";
     }
 
@@ -20,7 +20,7 @@
     <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
           page. However, you can choose any other skin. Make sure you
           apply the skin class to the body tag so the changes take effect. -->
-    <link rel="stylesheet" href="~/admin-lte/css/skins/skin-black.min.css">
+    <link rel="stylesheet" href="~/admin-lte/css/skins/skin-blue.min.css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -31,8 +31,9 @@
     <!-- Google Font -->
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+
 </head>
-<body>
+<body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">
         <!-- Main Header -->
         <header class="main-header">
@@ -40,9 +41,9 @@
             <!-- Logo -->
             <a href="@Url.Action("Index", "Home")" class="logo">
                 <!-- mini logo for sidebar mini 50x50 pixels -->
-                <span class="logo-mini"><b>A</b>LT</span>
+                <span class="logo-mini"><img class="logo-mini" src="~/admin-lte/img/gh_50x50.jpg" alt="Ghana flag"></span>
                 <!-- logo for regular state and mobile devices -->
-                <span class="logo-lg"><b>Soft</b> Inc</span>
+                <span class="logo-lg"><b>GRA Customs</b> POC</span>
             </a>
 
             <!-- Header Navbar -->
@@ -355,9 +356,9 @@
             <section class="content container-fluid">
                 @RenderBody()
             </section>
-                <hr />
-                <!-- Main Footer -->
-                @*<footer>
+            <hr />
+            <!-- Main Footer -->
+            @*<footer>
                 <p>&copy; @DateTime.Now.Year - Soft Inc Auctions Admin</p>
             </footer>*@
         </div>
@@ -375,6 +376,7 @@
 
         <!-- AdminLTE App -->
         <script src="~/admin-lte/js/adminlte.min.js"></script>
+        <script src="~/Scripts/jquery.countdown.js"></script>
         @RenderSection("scripts", required: false)
     </div>
 </body>

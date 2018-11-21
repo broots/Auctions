@@ -23,7 +23,7 @@ namespace SoftInc.Auctions.Web.Models
         public short? CategoryId { get; set; }
         public int? SubCategoryId { get; set; }
 
-        [Display(Name = "Reserve Price"), DisplayFormat(DataFormatString = "{0:C}")]
+        [Display(Name = "Reserve Price"), DisplayFormat(DataFormatString = "GH₵{0:#,##0.00}")]
         public decimal? ReservePrice { get; set; }
 
         [Display(Name = "Is Sold")]
@@ -51,5 +51,8 @@ namespace SoftInc.Auctions.Web.Models
         public List<string> Images { get; set; }
 
         public DateTime? AuctionStartDate { get; set; }
+        public DateTime? AuctionEndDate { get; set; }
+        public TimeSpan? AuctionStartTime { get; set; }
+        public TimeSpan? AuctionEndTime { get; set; }
     }
 }

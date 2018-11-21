@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Web;
@@ -9,6 +10,15 @@ namespace SoftInc.Auctions.Web.Helpers
 {
     public static class Extensions
     {
+        public static CultureInfo CustomCultureInfo
+        {
+            get
+            {
+                var ci = new CultureInfo("en-GB");
+                ci = ci.ToGhCulture();
+                return ci;
+            }
+        }
         public static IMappingExpression<TSource, TDestination> IgnoreAllNonExisting<TSource, TDestination>
                 (this IMappingExpression<TSource, TDestination> expression)
         {
@@ -24,6 +34,12 @@ namespace SoftInc.Auctions.Web.Helpers
                 }
             }
             return expression;
+        }
+
+        public static CultureInfo ToGhCulture(this CultureInfo ci)
+        {
+            ci.NumberFormat.CurrencySymbol = "GH₵";
+            return ci;
         }
     }
 }

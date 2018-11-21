@@ -35,7 +35,10 @@ namespace SoftInc.Auctions.Web.Controllers
         {
             var auction = await _auctionController.GetAuctionById(id);
             var items = auction.Items;
-            items.ForEach(x => x.AuctionStartDate = auction.StartDate);
+            items.ForEach(x =>
+                {
+                    x.AuctionStartDate = auction.StartDate;
+                });
 
             return View(items);
         }
@@ -44,6 +47,11 @@ namespace SoftInc.Auctions.Web.Controllers
         public async Task<ActionResult> Bidding(long itemId)
         {
             var data = await _itemController.GetItemAndBids(itemId);
+            var auction = await _auctionController.GetAuctionById(data.AuctionId.GetValueOrDefault());
+
+            data.AuctionEndDate = auction.EndDate;
+            data.AuctionStartTime = auction.StartTime;
+            data.AuctionEndTime = auction.EndTime;
             return View(data);
         }
     }
