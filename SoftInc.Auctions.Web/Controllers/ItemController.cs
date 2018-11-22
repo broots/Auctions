@@ -16,7 +16,7 @@ namespace SoftInc.Auctions.Web.Controllers
     {
         public async Task<ExtendedItemModel> GetItemAndBids(long itemId)
         {
-            var data = await GetById<ExtendedItemModel>(m => m.Id == itemId, m => m.Biddings);
+            var data = await GetById<ExtendedItemModel>(m => m.Id == itemId, m => m.Biddings, m => m.ItemImages);
             //var result = Mapper.Map<ExtendedItemModel>(data);
 
             return data; // result;

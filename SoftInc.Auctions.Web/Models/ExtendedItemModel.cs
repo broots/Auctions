@@ -8,5 +8,6 @@ namespace SoftInc.Auctions.Web.Models
     public class ExtendedItemModel : ItemModel
     {
         public List<BiddingModel> Biddings { get; set; }
-     }
+        public List<ItemImageModel> ItemImages { get; set; }
+    }
 }

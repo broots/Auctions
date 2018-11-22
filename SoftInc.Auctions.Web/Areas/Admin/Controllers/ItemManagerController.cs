@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using SoftInc.Auctions.Business.Ef;
 using SoftInc.Auctions.Business.Managers;
+using SoftInc.Auctions.Web.Helpers;
 using SoftInc.Auctions.Web.Models;
 using System;
 using System.Collections.Generic;
@@ -92,30 +93,30 @@ namespace SoftInc.Auctions.Web.Areas.Admin.Controllers
 
             foreach (var file in model.UploadFiles)
             {
-                Image img;
-                Image imgThumb; //img.GetThumbnailImage(120, 120, () => false, IntPtr.Zero);
+                //Image img;
+                //Image imgThumb; //img.GetThumbnailImage(120, 120, () => false, IntPtr.Zero);
 
-                var imgStr = string.Empty;
-                var thumbImgStr = string.Empty;
+                var imgStr = file.InputStream.ImgToBase64String(); // string.Empty;
+                var thumbImgStr = file.InputStream.ImgToThumbBase64String(); // string.Empty;
 
                 // save the image path path to the database or you can send image 
                 // directly to database
                 // in-case if you want to store byte[] ie. for DB
-                using (MemoryStream ms = new MemoryStream())
-                {
-                    file.InputStream.CopyTo(ms);
-                    byte[] array = ms.GetBuffer();
-                    imgStr = Convert.ToBase64String(array);
-                    img = Image.FromStream(ms);
-                }
+                //using (MemoryStream ms = new MemoryStream())
+                //{
+                //    file.InputStream.CopyTo(ms);
+                //    byte[] array = ms.GetBuffer();
+                //    imgStr = Convert.ToBase64String(array);
+                //    img = Image.FromStream(ms);
+                //}
 
-                using (var ms = new MemoryStream())
-                {
-                    imgThumb = img.GetThumbnailImage(120, 120, () => false, IntPtr.Zero);
-                    imgThumb.Save(ms, ImageFormat.Png);
-                    byte[] array = ms.GetBuffer();
-                    thumbImgStr = Convert.ToBase64String(array);
-                }
+                //using (var ms = new MemoryStream())
+                //{
+                //    imgThumb = img.GetThumbnailImage(120, 120, () => false, IntPtr.Zero);
+                //    imgThumb.Save(ms, ImageFormat.Png);
+                //    byte[] array = ms.GetBuffer();
+                //    thumbImgStr = Convert.ToBase64String(array);
+                //}
 
                 lsImages.Add(new ItemImage { ImageString = imgStr, ThumbImageString = thumbImgStr, DateCreated = DateTime.Now, DateModified = DateTime.Now, ItemId = model.Id });
 

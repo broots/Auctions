@@ -62,7 +62,7 @@
         </div>
         <!--/.direct-chat-messages-->
         <!-- Contacts are loaded here -->
-        <div class="direct-chat-contacts">
+        <div class="direct-chat-contacts col-sm-6">
             <ul class="contacts-list">
                 <li>
                     <a href="#">
@@ -93,36 +93,55 @@
             </span>
         </div>
     </div>
-    <div class="panel panel-default" data-toggle="tooltip" data-placement="top">
-        <div class="panel-heading">
-            <h4>Auction Ends In!</h4>
-        </div>
-        <!-- /.box-header -->
-        <div class="panel-body">
-            <div id="clock" class="lead"></div>
-        </div>
-    </div>
-        <!-- /.box-footer-->
-        <input type="hidden" id="msgToggle" />
-        <input type="hidden" id="fName" />
-        <input type="hidden" id="bId" />
-    </div>
+
+</div>
 <!--/.direct-chat -->
+
+<div class="row">
+    <div class="col-md-12">
+        <div id="imageCarousel" class="carousel slide multi-item-carousel">
+            <div class="carousel-inner">
+                @{int i = 0;}
+                @foreach (var img in Model.ItemImages)
+                {
+                    i++;
+                    var active = i == 1 ? "active" : "";
+                    <div class="item @active">
+                        <div class="col-xs-4">
+                            <img class="img-responsive" src="@String.Format("data:image/png;base64,{0}", img.ImageString)" alt="Photo">
+                        </div>
+                    </div>
+                }
+            </div>
+            <a class="left carousel-control" href="#imageCarousel" data-slide="prev">
+                <i class="glyphicon glyphicon-chevron-left"></i>
+            </a>
+            <a class="right carousel-control" href="#imageCarousel" data-slide="next">
+                <i class="glyphicon glyphicon-chevron-right"></i>
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="panel panel-default" data-toggle="tooltip" data-placement="top">
+    <div class="panel-heading">
+        <h4 class="text-bold">Auction Ends In!</h4>
+    </div>
+    <!-- /.box-header -->
+    <div class="panel-body">
+        <div id="clock" class="lead text-bold text-blue"></div>
+    </div>
+</div>
+<!-- /.box-footer-->
+<input type="hidden" id="msgToggle" />
+<input type="hidden" id="fName" />
+<input type="hidden" id="bId" />
 
 
 
 @section scripts {
     <script src="~/Scripts/jquery.signalR-2.3.0.min.js"></script>
     <script src="~/signalr/hubs"></script>
-    <script type="text/template" id="main-example-template">
-        <div class="time <%= label %>">
-            <span class="count curr top"><%= curr %></span>
-            <span class="count next top"><%= next %></span>
-            <span class="count next bottom"><%= next %></span>
-            <span class="count curr bottom"><%= curr %></span>
-            <span class="label"><%= label.length < 6 ? label : label.substr(0, 3)  %></span>
-        </div>
-    </script>
     <script>
 
         $(function () {
@@ -131,6 +150,27 @@
                 $(this).val($(this).val().replace(/[^0-9\.]/g, ''));
                 if ((event.which != 46 || $(this).val().indexOf('.') != -1) && (event.which < 48 || event.which > 57)) {
                     event.preventDefault();
+                }
+            });
+
+            // Instantiate the Bootstrap carousel
+            $('.multi-item-carousel').carousel({
+                interval: false
+            });
+
+            // for every slide in carousel, copy the next slide's item in the slide.
+            // Do the same for the next, next item.
+            $('.multi-item-carousel .item').each(function () {
+                var next = $(this).next();
+                if (!next.length) {
+                    next = $(this).siblings(':first');
+                }
+                next.children(':first-child').clone().appendTo($(this));
+
+                if (next.next().length > 0) {
+                    next.next().children(':first-child').clone().appendTo($(this));
+                } else {
+                    $(this).siblings(':first').children(':first-child').clone().appendTo($(this));
                 }
             });
 

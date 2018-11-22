@@ -18,9 +18,11 @@ namespace SoftInc.Auctions.Web.Mapping
                 cfg.CreateMap<ItemSubCategory, SubCategoryModel>();
                 cfg.CreateMap<SubCategoryModel, ItemSubCategory>();
                 cfg.CreateMap<ItemModel, Item>();
-                cfg.CreateMap<Item, ItemModel>();
+                cfg.CreateMap<Item, ItemModel>().IgnoreAllNonExisting(); 
                 cfg.CreateMap<ExtendedItemModel, Item>();
                 cfg.CreateMap<Item, ExtendedItemModel>().IgnoreAllNonExisting();
+                cfg.CreateMap<ItemImage, ItemImageModel>();
+                cfg.CreateMap<ItemImageModel, ItemImage>();
                 cfg.CreateMap<Auction, AuctionModel>();
                 cfg.CreateMap<AuctionModel, Auction>();
                 cfg.CreateMap<RegisterViewModel, Bidder>();

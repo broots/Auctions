@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoftInc.Auctions.Business",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoftInc.Auctions.Web", "SoftInc.Auctions.Web\SoftInc.Auctions.Web.csproj", "{BEBD3D1B-27EB-4FB4-A5CA-0B76997B37F5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoftInc.Auctions.WebTests", "SoftInc.Auctions.WebTests\SoftInc.Auctions.WebTests.csproj", "{8AD3F54D-8B56-4353-A874-2E01E40D5BB4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{BEBD3D1B-27EB-4FB4-A5CA-0B76997B37F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BEBD3D1B-27EB-4FB4-A5CA-0B76997B37F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BEBD3D1B-27EB-4FB4-A5CA-0B76997B37F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8AD3F54D-8B56-4353-A874-2E01E40D5BB4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8AD3F54D-8B56-4353-A874-2E01E40D5BB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8AD3F54D-8B56-4353-A874-2E01E40D5BB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8AD3F54D-8B56-4353-A874-2E01E40D5BB4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
