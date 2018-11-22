@@ -275,7 +275,10 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AuctionModel.cs" />
     <Compile Include="Models\BaseModel.cs" />
+    <Compile Include="Models\BidderModel.cs" />
     <Compile Include="Models\BiddingModel.cs" />
+    <Compile Include="Models\ExtendedBidderModel.cs" />
+    <Compile Include="Models\ExtendedBiddingModel.cs" />
     <Compile Include="Models\ExtendedItemModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ItemCategoryBaseModel.cs" />
@@ -2157,6 +2160,7 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Home\MyAuctions.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

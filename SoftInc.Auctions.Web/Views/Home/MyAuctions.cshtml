@@ -1,0 +1,42 @@
+﻿@model SoftInc.Auctions.Web.Models.ExtendedBidderModel
+
+@{
+    ViewBag.Title = "My Auctions";
+}
+
+<h2>My Auctions</h2>
+<div class="box">
+    <div class="box-header">
+        <h3 class="box-title">My Auctions</h3>
+    </div>
+    <div class="box-body">
+        <table class="table table-bordered table-striped">
+            <tr>
+
+                <th>Item</th>
+                <th>Description</th>
+                <th>My Max Bid</th>
+                <th>Status</th>
+                <th></th>
+            </tr>
+
+            @foreach (var bid in Model.Biddings)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => bid.Item.ItemName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => bid.Item.ItemSummary)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => bid.Amount)
+                    </td>
+                    <td>n/a</td>
+                    <td></td>
+                </tr>
+            }
+
+        </table>
+    </div>
+</div>

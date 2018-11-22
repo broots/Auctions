@@ -2,6 +2,7 @@
 using Microsoft.AspNet.Identity.Owin;
 using SoftInc.Auctions.Business.Ef;
 using SoftInc.Auctions.Business.Managers;
+using SoftInc.Auctions.Web.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +20,7 @@ namespace SoftInc.Auctions.Web.Controllers
         protected string PageDescription { get; set; }
         protected string UserName { get; set; }
 
-        private IRepository<Bidder> bidderMng;
+        protected IRepository<Bidder> bidderMng;
 
 
         public BaseController()
@@ -38,14 +39,20 @@ namespace SoftInc.Auctions.Web.Controllers
 
         protected async Task<Bidder> GetBidder(string email, ApplicationUserManager userManager = null)
         {
-            var um = userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>(); 
-            var u = await um.FindByEmailAsync(email);
+            var u = await GetUser(email, userManager);
             var userId = u.Id;
-            var result = await bidderMng.Search(m => m.UserId == userId);
+            var result = await bidderMng.Search(m => m.UserId == userId, null, null, null, m => m.Biddings);
             var bidder = result.FirstOrDefault();
             SetBidder(bidder);
 
             return bidder;
+        }
+
+        protected async Task<ApplicationUser> GetUser(string email, ApplicationUserManager userManager)
+        {
+            var um = userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            var u = await um.FindByEmailAsync(email);
+            return u;
         }
 
         protected void SetBidder(Bidder b)

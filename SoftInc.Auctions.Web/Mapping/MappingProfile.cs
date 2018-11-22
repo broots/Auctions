@@ -27,8 +27,11 @@ namespace SoftInc.Auctions.Web.Mapping
                 cfg.CreateMap<AuctionModel, Auction>();
                 cfg.CreateMap<RegisterViewModel, Bidder>();
                 cfg.CreateMap<Bidder, RegisterViewModel>();
+                cfg.CreateMap<Bidder, BidderModel>().ReverseMap();
+                cfg.CreateMap<Bidder, ExtendedBidderModel>().ReverseMap();
                 cfg.CreateMap<Bidding, BiddingModel>();
                 cfg.CreateMap<BiddingModel, Bidding>();
+                cfg.CreateMap<Bidding, ExtendedBiddingModel>().ReverseMap();
             });
         }
     }
