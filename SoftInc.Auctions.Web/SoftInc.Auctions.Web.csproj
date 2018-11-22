@@ -223,6 +223,7 @@
     <Compile Include="Areas\Admin\Controllers\BaseManagerController.cs" />
     <Compile Include="Areas\Admin\Controllers\CategoryManagerController.cs" />
     <Compile Include="Areas\Admin\Controllers\ItemManagerController.cs" />
+    <Compile Include="Areas\Admin\Controllers\MainController.cs" />
     <Compile Include="Areas\Admin\Controllers\SubCategoryManagerController.cs" />
     <Compile Include="Areas\HelpPage\ApiDescriptionExtensions.cs" />
     <Compile Include="Areas\HelpPage\App_Start\HelpPageConfig.cs" />
@@ -2008,6 +2009,7 @@
     <Content Include="admin-lte\Ionicons\scss\_ionicons-font.scss" />
     <Content Include="admin-lte\Ionicons\scss\_ionicons-icons.scss" />
     <Content Include="admin-lte\Ionicons\scss\_ionicons-variables.scss" />
+    <Content Include="Areas\Admin\Views\Main\Index.cshtml" />
     <None Include="Properties\PublishProfiles\SoftIncAuctionsWeb - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\i18n\defaults-ar_AR.js" />
